@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="map/json/jquery.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <!-- <script src="map/china.js"></script>
+    <script src="map/world.js"></script> -->
+</head>
+
+<body style="height: 100%; margin: 0; background:rgba(28, 47, 53,1)">
+    <div id="main" style="height: 100%"></div>
+    <script>
+    $.get('map/json/world.json', function (chinaJson) {
+    echarts.registerMap('world', chinaJson);
+    var chart = echarts.init(document.getElementById('main'));
+    chart.setOption({
+        series: [{
+            type: 'map',
+            map: 'world',
+            roam: true,
+            label: {
+                normal: {
+                    // show: true,
+                    textStyle: {
+                        color: '#fff'
+                    }
+                }
+            },
+            itemStyle: {
+                normal: {
+                    areaColor: 'rgba(28, 47, 53,1)',
+                    shadowOffsetX: 0,
+                    shadowOffsetY: 0,
+                    shadowBlur: 5,
+                    borderWidth: .5,
+                    borderColor: '#00f8ff',
+                    shadowColor: 'rgba(0, 248, 255,.3)',
+                },
+                emphasis: {
+                    areaColor: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgba(0, 188, 255, 0.7)' // 0% 处的颜色
+                    }, {
+                        offset: 1,
+                        color: 'rgba(0, 118, 255, 0.9)' // 100% 处的颜色
+                    }], false),
+                    label: {
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    }
+                }
+            }
+        }]
+    });
+});
+    </script>
+</body>
+
+</html>
